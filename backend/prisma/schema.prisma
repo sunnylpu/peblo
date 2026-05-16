@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notes        Note[]
+  tags         Tag[]
+  activityLogs ActivityLog[]
+}
+
+model Note {
+  id           String   @id @default(uuid())
+  title        String
+  content      String   @db.Text
+  isArchived   Boolean  @default(false)
+  isPublic     Boolean  @default(false)
+  shareId      String?  @unique
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lastEditedAt DateTime @default(now())
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags       Tag[]
+  aiInsights AIInsight[]
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notes Note[]
+}
+
+model AIInsight {
+  id             String   @id @default(uuid())
+  noteId         String
+  summary        String?  @db.Text
+  actionItems    String?  @db.Text // Can store JSON string
+  suggestedTitle String?
+  tokensUsed     Int?
+  provider       String?
+  createdAt      DateTime @default(now())
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id         String   @id @default(uuid())
+  userId     String
+  action     String // CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE, GENERATE_AI, SHARE_NOTE, ARCHIVE_NOTE
+  entityType String
+  entityId   String
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

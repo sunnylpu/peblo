@@ -1,0 +1,8 @@
+{
+  "message": "\nInvalid `prisma.user.findUnique()` invocation in\n/Users/sunnytyagi/Downloads/peblo-ai/backend/src/auth/auth.controller.ts:22:44\n\n  19 try {\n  20   const data = signupSchema.parse(req.body);\n  21 \n→ 22   const existingUser = await prisma.user.findUnique(\n",
+  "code": "ECONNREFUSED",
+  "meta": {
+    "modelName": "User"
+  },
+  "stack": "PrismaClientKnownRequestError: \nInvalid `prisma.user.findUnique()` invocation in\n/Users/sunnytyagi/Downloads/peblo-ai/backend/src/auth/auth.controller.ts:22:44\n\n  19 try {\n  20   const data = signupSchema.parse(req.body);\n  21 \n→ 22   const existingUser = await prisma.user.findUnique(\n\n    at zr.handleRequestError (/Users/sunnytyagi/Downloads/peblo-ai/backend/node_modules/@prisma/client/src/runtime/RequestHandler.ts:237:13)\n    at zr.handleAndLogRequestError (/Users/sunnytyagi/Downloads/peblo-ai/backend/node_modules/@prisma/client/src/runtime/RequestHandler.ts:183:12)\n    at zr.request (/Users/sunnytyagi/Downloads/peblo-ai/backend/node_modules/@prisma/client/src/runtime/RequestHandler.ts:152:12)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async a (/Users/sunnytyagi/Downloads/peblo-ai/backend/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:963:24)\n    at async signup (/Users/sunnytyagi/Downloads/peblo-ai/backend/src/auth/auth.controller.ts:22:26)"
+}

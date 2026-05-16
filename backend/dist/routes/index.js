@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_routes_1 = __importDefault(require("../auth/auth.routes"));
+const notes_routes_1 = __importDefault(require("../notes/notes.routes"));
+const ai_routes_1 = __importDefault(require("../ai/ai.routes"));
+const search_routes_1 = __importDefault(require("../search/search.routes"));
+const analytics_routes_1 = __importDefault(require("../analytics/analytics.routes"));
+const share_routes_1 = __importDefault(require("../share/share.routes"));
+const router = (0, express_1.Router)();
+router.use('/auth', auth_routes_1.default);
+router.use('/notes', notes_routes_1.default);
+router.use('/ai', ai_routes_1.default);
+router.use('/search', search_routes_1.default);
+router.use('/analytics', analytics_routes_1.default);
+router.use('/notes/shared', share_routes_1.default);
+exports.default = router;

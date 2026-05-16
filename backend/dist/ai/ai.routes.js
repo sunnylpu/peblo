@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ai_controller_1 = require("./ai.controller");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.use(auth_1.authenticate);
+router.post('/summarize/:noteId', ai_controller_1.summarizeNote);
+router.post('/action-items/:noteId', ai_controller_1.extractActionItems);
+router.post('/title/:noteId', ai_controller_1.suggestTitle);
+exports.default = router;
